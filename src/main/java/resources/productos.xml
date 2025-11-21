@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<productos>
+    <producto categoria="Hogar" id="1">
+        <nombre>Televisión</nombre>
+        <precio>200</precio>
+        <categoria>Hogar</categoria>
+    </producto>
+    <producto categoria="Ordenador" id="2">
+        <nombre>Placa base</nombre>
+        <precio>100</precio>
+        <categoria>Ordenador</categoria>
+    </producto>
+    <producto categoria="Ordenador" id="3">
+        <nombre>Ratón</nombre>
+        <precio>10</precio>
+        <categoria>Ordenador</categoria>
+    </producto>
+    <producto categoria="Ordenador" id="4">
+        <nombre>Procesador</nombre>
+        <precio>200</precio>
+        <categoria>Ordenador</categoria>
+    </producto>
+    <producto categoria="Ordenador" id="5">
+        <nombre>Monitor</nombre>
+        <precio>50</precio>
+        <categoria>Ordenador</categoria>
+    </producto>
+</productos>
