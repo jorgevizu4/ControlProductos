@@ -111,4 +111,19 @@ public class PeticionesController {
             }
         } while (fallo);
     }
+
+    public void actualizarPorducto(Producto producto, String name){
+        boolean fallo = false;
+        do {
+            int prodAct = productoDAOImpl.actualizarDato(producto,name);
+            if (prodAct > 0) {
+                fallo = false;
+                System.out.println("Producto actualizado correctamente");
+            } else {
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("El producto no existe. Introduce un otro nombre:");
+                fallo = true;
+            }
+        } while (fallo);
+    }
 }

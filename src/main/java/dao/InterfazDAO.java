@@ -7,6 +7,6 @@ import java.util.ArrayList;
 public interface InterfazDAO<T> {
     boolean insertarDato(T data) throws SQLException;
     ArrayList<T> obtenerListaDatos();
-    boolean actualizarDato(T datoNuevo);
+    int actualizarDato(T datoNuevo, String nombre) throws SQLException;
     int borrarDatos(int id);
 }

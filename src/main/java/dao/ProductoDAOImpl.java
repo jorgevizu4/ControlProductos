@@ -93,8 +93,23 @@ public class ProductoDAOImpl implements ProductoDAO {
     }
 
     @Override
-    public boolean actualizarDato(Producto datoNuevo) {
-        return false;
+    public int actualizarDato(Producto datoNuevo, String nombre) {
+        String query = String.format("UPDATE %s SET %s=?, %s=?, %s=? WHERE %s=?",
+                InterfazDB.TAB_NAME,
+                InterfazDB.COL_NAME, InterfazDB.COL_PRECIO, InterfazDB.COL_CATEGORIA, InterfazDB.COL_NAME);
+
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, datoNuevo.getNombre());
+            preparedStatement.setDouble(2, datoNuevo.getPrecio());
+            preparedStatement.setString(3, datoNuevo.getCategoria());
+            preparedStatement.setString(4, nombre);
+
+            return preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error en la sentencia SQL");
+        }
+        return 0;
     }
 
     @Override
