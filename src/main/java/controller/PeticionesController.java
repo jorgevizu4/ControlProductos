@@ -12,6 +12,7 @@ import javax.xml.bind.Unmarshaller;
 import java.io.File;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -36,7 +37,6 @@ public class PeticionesController {
                 System.out.println("Introduce un nuevo nombre.");
                 String nombre = scanner.next();
                 producto.setNombre(nombre);
-                scanner.close();
                 fallo = true;
             }
         } while (fallo);
@@ -61,6 +61,24 @@ public class PeticionesController {
         }
     }
 
+    public void listarPorCategoria(String categoria) {
+        boolean fallo = false;
+        do {
+            ArrayList<Producto> lista = productoDAOImpl.obtenerPorCategoria(categoria);
+            if (!lista.isEmpty()) {
+                for (Producto producto: lista) {
+                    producto.mostrarDatos();
+                }
+                fallo = false;
+            } else {
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("La categoría '" + categoria + "' no existe. Especifique otra categoría: ");
+                categoria = scanner.next();
+                fallo = true;
+            }
+        } while (fallo);
+    }
+
     public void importacionXML() {
         JAXBContext context = null;
         Unmarshaller unmarshaller;
@@ -79,18 +97,16 @@ public class PeticionesController {
     }
 
     public void aumentarPrecioPorCategoria(double precio, String categoria) {
-        int rows = productoDAOImpl.actualizarPrecioPorCategoria(precio, categoria);
         boolean fallo = false;
         do {
+            int rows = productoDAOImpl.actualizarPrecioPorCategoria(precio, categoria);
             if (rows > 0) {
                 System.out.println("Precio actualizado correctamente para los productos de " + categoria);
                 fallo = false;
             } else {
                 Scanner scanner = new Scanner(System.in);
-                System.out.println("La categoría especificada no existe.");
-                System.out.println("Introduzca otra categoria:");
+                System.out.println("La categoría especificada no existe. Introduzca otra categoria:");
                 categoria = scanner.next();
-                scanner.close();
                 fallo = true;
             }
         } while (fallo);

@@ -19,7 +19,26 @@ public class ProductoDAOImpl implements ProductoDAO {
 
     @Override
     public ArrayList<Producto> obtenerPorCategoria(String categoria) {
-        return null;
+        ArrayList<Producto> lista = new ArrayList<>();
+        String query = String.format("SELECT * FROM %s WHERE %s = ?",
+                InterfazDB.TAB_NAME,
+                InterfazDB.COL_CATEGORIA);
+        try {
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, categoria);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt(InterfazDB.COL_ID);
+                String name = resultSet.getString(InterfazDB.COL_NAME);
+                double precio = resultSet.getDouble(InterfazDB.COL_PRECIO);
+                String cat = resultSet.getString(InterfazDB.COL_CATEGORIA);
+                Producto producto = new Producto(id, name, precio, cat);
+                lista.add(producto);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error en la sentencia SQL");
+        }
+        return lista;
     }
 
     @Override
@@ -56,7 +75,7 @@ public class ProductoDAOImpl implements ProductoDAO {
     public ArrayList<Producto> obtenerListaDatos() {
         ArrayList<Producto> listaProductos = new ArrayList<>();
         try {
-            preparedStatement = connection.prepareStatement("SELECT * FORM " + InterfazDB.TAB_NAME);
+            preparedStatement = connection.prepareStatement("SELECT * FROM " + InterfazDB.TAB_NAME);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 int id = resultSet.getInt(InterfazDB.COL_ID);

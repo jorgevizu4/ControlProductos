@@ -25,9 +25,10 @@ public class TestingDAO {
             System.out.println("1. Insertar producto.");
             System.out.println("2. Borrar producto.");
             System.out.println("3. Listar producto.");
-            System.out.println("4. Importar productos desde XML.");
-            System.out.println("5. Actualizar precio por categoria.");
-            System.out.println("6. Salir.");
+            System.out.println("4. Listar productos por categoria.");
+            System.out.println("5. Importar productos desde XML.");
+            System.out.println("6. Actualizar precio por categoria.");
+            System.out.println("7. Salir.");
             System.out.println("Elige una opción: ");
             opcion = scanner.nextInt();
 
@@ -36,7 +37,7 @@ public class TestingDAO {
                     System.out.println("Indica nombre del producto:");
                     String nombre = scanner.next();
                     System.out.println("Indica precio del producto:");
-                    int precio = scanner.nextInt();
+                    double precio = scanner.nextDouble();
                     System.out.println("Indica categoria del producto:");
                     String categoria = scanner.next();
                     peticionesController.insertarProducto(new Producto(nombre, precio, categoria));
@@ -50,22 +51,28 @@ public class TestingDAO {
                     peticionesController.listarProductos();
                 }
                 case 4 -> {
-                    peticionesController.importacionXML();
+                    System.out.println("Indique una categoría.");
+                    String cat = scanner.next();
+                    peticionesController.listarPorCategoria(cat);
                 }
                 case 5 -> {
+                    peticionesController.importacionXML();
+                }
+                case 6 -> {
                     System.out.println("Indica el porcentaje de subida");
                     double aumento = scanner.nextDouble();
                     System.out.println("Indica la categoria");
                     String categoria = scanner.next();
                     peticionesController.aumentarPrecioPorCategoria(aumento, categoria);
                 }
-                case 6 -> {
+                case 7 -> {
                     System.out.println("Fin del programa.");
                 }
                 default -> {
                     System.out.println("Opción no válida");
                 }
             }
-        } while (opcion!=6);
+        } while (opcion!=7);
+        scanner.close();
     }
 }
